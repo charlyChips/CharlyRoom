@@ -1,6 +1,42 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#4cbff4</color>
+    <color name="colorPrimaryDark">#111112</color>
+    <color name="colorAccent">#4f86ea</color>
+
+    <color name="colorBordePeceraDark">#7f7f7f</color>
+    <color name="colorBordePeceraLight">#434242</color>
+    <color name="colorAgua">#9ed8ff</color>
+    <color name="colorAristaPecera">#9ffffc</color>
+
+
+    <color name="color.verde.0">#ccff90</color>
+    <color name="color.verde.1">#b2ff59</color>
+    <color name="color.verde.2">#76ff03</color>
+    <color name="color.verde.3">#64dd17</color>
+    <color name="color.verde.4">#59c614</color>
+
+    <color name="color.rojo.0">#ffcdd2</color>
+    <color name="color.rojo.1">#e57373</color>
+    <color name="color.rojo.2">#f44336</color>
+    <color name="color.rojo.3">#d32f2f</color>
+    <color name="color.rojo.4">#b71c1c</color>
+
+    <color name="color.azul.0">#bbdefb</color>
+    <color name="color.azul.1">#90caf9</color>
+    <color name="color.azul.2">#42a5f5</color>
+    <color name="color.azul.3">#1976d2</color>
+    <color name="color.azul.4">#0d47a1</color>
+
+
+    <color name="color.shadow.red">#48f44336</color>
+    <color name="color.shadow.blue">#4842a5f5</color>
+    <color name="color.shadow.yellow">#48ffab00</color>
+    <color name="color.shadow.green">#4800c853</color>
+
+    <color name="color.font.red">#F03522</color>
+    <color name="color.font.blue">#26ACE6</color>
+    <color name="color.font.green">#35B64A</color>
+    <color name="color.font.yellow">#FDD201</color>
+
 </resources>

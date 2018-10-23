@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="12dp">
+    <TextView
+        android:id="@+id/tv_bluetooth_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="BLUETOOTH"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"/>
+    <TextView
+        android:id="@+id/tv_bluetooth_titleFront"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="bluetooth"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:layout_centerVertical="true"
+        android:textColor="#000"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_bluetooth"
+        android:layout_centerVertical="true"
+        android:tint="#1882fc"/>
+</RelativeLayout>

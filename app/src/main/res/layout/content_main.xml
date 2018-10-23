@@ -1,20 +1,198 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".MainActivity"
-    tools:showIn="@layout/activity_main">
+    tools:showIn="@layout/activity_main"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:keepScreenOn="true">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="100"
+        >
 
-</android.support.constraint.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="60">
+            <ImageView
+                android:id="@+id/bg1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mario_bg"
+                android:scaleType="fitXY"/>
+            <ImageView
+                android:id="@+id/bg2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mario_bg"
+                android:scaleType="fitXY"
+                android:scaleX="-1"
+                />
+
+            <ImageView
+                android:id="@+id/iv_mario"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/mario0"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"/>
+
+
+            <ImageButton
+                android:id="@+id/bt_block"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_marginBottom="88dp"
+                android:layout_marginRight="60dp"
+                android:background="@drawable/selector_block"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentEnd="true"
+                />
+
+        </RelativeLayout>
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="40">
+            <ImageView
+                android:id="@+id/floor1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mario_tile_floor"
+                android:scaleType="fitXY"
+                />
+            <ImageView
+                android:id="@+id/floor2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/mario_tile_floor"
+                android:scaleType="fitXY"/>
+        </FrameLayout>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/draw_shadow_dark"
+        android:id="@+id/iv_shadow"
+        android:visibility="gone"
+        />
+    <ImageView
+        android:id="@+id/iv_shadowColors"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/tv_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Charly"
+            android:gravity="center"
+            android:textSize="60sp"
+            android:layout_margin="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/tv_titleFront"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="charly\nroom"
+            android:textSize="60sp"
+            android:layout_margin="20dp"
+            android:gravity="center"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textColor="#000"/>
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="100"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="35">
+
+                <ToggleButton
+                    android:id="@+id/bt_foco"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/selector_on_off"
+                    android:textOff="Luz"
+                    android:textOn="Luz"
+                    android:textSize="22sp"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"/>
+                <ToggleButton
+                    android:id="@+id/bt_luces_colores"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/selector_on_off"
+                    android:textOff="Party"
+                    android:textOn="Party"
+                    android:textSize="22sp"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="35">
+
+                <ToggleButton
+                    android:id="@+id/bt_focoPecera"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/selector_on_off"
+                    android:textOff="Luz"
+                    android:textOn="Luz"
+                    android:textSize="22sp"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"/>
+                <ToggleButton
+                    android:id="@+id/bt_filtro"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/selector_on_off"
+                    android:textOff="Filtro"
+                    android:textOn="Filtro"
+                    android:textSize="22sp"
+                    android:textColor="#fff"
+                    android:textAllCaps="false"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </android.support.constraint.ConstraintLayout>
+
+</RelativeLayout>

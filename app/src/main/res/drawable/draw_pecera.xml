@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:height="100dp"
+    android:width="150dp"
+    android:viewportHeight="100"
+    android:viewportWidth="200">
+    <path android:fillColor="@color/colorPrimary"
+        android:pathData="M 0,30 L 105,20 150,20 150,90 45,100 0,100 z"/>
+
+    <!--  rectangulo frontal-->
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 0,30 L 45,30 45,32 0,32 z"/>
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 45,30 L 45,100 43,100 43,30 z"/>
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 0,100 L 45,100 45,98 0,98 z"/>
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 0,30 L 0,100 2,100 2,30 z"/>
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 43,30 L 148,20 150,22 45,32 z"/>
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 0,30 L 105,20 105,21 1,31 z"/>
+
+
+
+
+    <!--  rectangulo posterior-->
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 105,20 L 150,20 150,21 105,21 z"/>
+
+    <!-- ARISTAS -->
+    <path android:fillColor="@color/colorAristaPecera"
+        android:pathData="M 150,20 L 150,90 149,90 149,20 z"/>
+
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 105,90 L 150,90 150,88 105,88 z"/>
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 105,20 L 105,90 107,90 107,20 z"/>
+
+
+    <path android:fillColor="@color/colorBordePeceraDark"
+        android:pathData="M 45,100 L 150,90 148,88 45,98"/>
+
+
+
+</vector>
