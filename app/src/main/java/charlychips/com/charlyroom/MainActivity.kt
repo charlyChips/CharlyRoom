@@ -9,11 +9,13 @@ import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.text.Html
 import android.util.DisplayMetrics
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.animation.LinearInterpolator
+import android.view.animation.ScaleAnimation
 import android.widget.TextView
 import android.widget.Toast
 import charlychips.com.charlyroom.Utils.Bluetooth
@@ -25,52 +27,11 @@ import kotlinx.android.synthetic.main.title_bluetooth.view.*
 
 class MainActivity : AppCompatActivity() {
 
-    var toast: Toast? = null
-    var bluetooth: Bluetooth
-    var connectionListener: Bluetooth.ConnectionListener
-
-    init {
-        bluetooth = Bluetooth.getInstance { s ->
-            /*
-            toast?.cancel()
-            toast = Toast.makeText(this@MainActivity, s, Toast.LENGTH_SHORT)
-            toast?.show()
-            */
-
-            if (s.contains("L".toRegex())) {
-                bt_foco.isChecked = true
-            }
-            if (s.contains("l".toRegex())) {
-                bt_foco.isChecked = false
-            }
-
-            if (s.contains("C".toRegex())) {
-                bt_luces_colores.isChecked = true
-            }
-            if (s.contains("c".toRegex())) {
-                bt_luces_colores.isChecked = false
-            }
 
 
-        }
-        connectionListener = object : Bluetooth.ConnectionListener {
-            override fun connectionSuccess(s: String?) {
 
 
-                bt_block.isEnabled = false
-            }
 
-            override fun connectionFailed(s: String?) {
-
-
-                bt_block.isEnabled = true
-            }
-
-            override fun connectionResult(s: String?) {
-
-            }
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -91,7 +52,7 @@ class MainActivity : AppCompatActivity() {
 
         bt_block.setOnClickListener{
             _ ->
-            bluetooth.getDialogDevices(this, connectionListener).apply {
+            Bluetooth.instance.getDialogDevices(this).apply {
                 setIcon(ContextCompat.getDrawable(this@MainActivity,R.drawable.ic_bluetooth))
 
                 val v = LayoutInflater.from(this@MainActivity).inflate(R.layout.title_bluetooth,null).apply {
@@ -123,49 +84,87 @@ class MainActivity : AppCompatActivity() {
         }
         */
 
+
         bt_foco.setOnCheckedChangeListener { _, b ->
 
+            Log.d("CharlyRoom","foto $b")
+            if(Bluetooth.instance.conexionBt == null){
+                bt_block.isEnabled = true
+                bt_foco.isChecked = !b
+                animaBloque()
+                return@setOnCheckedChangeListener
+            }
             if (b) {
-                bluetooth.conexionBt?.write("L")
+                Bluetooth.instance.conexionBt?.write("L")
                 iv_shadow.visibility = View.GONE
             } else {
-                bluetooth.conexionBt?.write("l")
+                Bluetooth.instance.conexionBt?.write("l")
                 iv_shadow.visibility = View.VISIBLE
             }
         }
 
         bt_luces_colores.setOnCheckedChangeListener { _, b ->
+
+            if(Bluetooth.instance.conexionBt == null){
+                bt_block.isEnabled = true
+                bt_luces_colores.isChecked = !b
+                animaBloque()
+                return@setOnCheckedChangeListener
+            }
             if (b) {
-                bluetooth.conexionBt?.write("C")
+                Bluetooth.instance.conexionBt?.write("C")
                 showShadowColors()
             } else {
-                bluetooth.conexionBt?.write("c")
+                Bluetooth.instance.conexionBt?.write("c")
                 hideShadowColors()
             }
 
         }
         bt_focoPecera.setOnCheckedChangeListener { _, b ->
+
+            if(Bluetooth.instance.conexionBt == null){
+                bt_block.isEnabled = true
+                animaBloque()
+                return@setOnCheckedChangeListener
+            }
             if (b) {
-                bluetooth.conexionBt?.write("P")
+                Bluetooth.instance.conexionBt?.write("P")
                 showShadowColors()
             } else {
-                bluetooth.conexionBt?.write("p")
+                Bluetooth.instance.conexionBt?.write("p")
                 hideShadowColors()
             }
 
         }
         bt_filtro.setOnCheckedChangeListener { _, b ->
+
+            if(Bluetooth.instance.conexionBt == null){
+                bt_block.isEnabled = true
+                animaBloque()
+                return@setOnCheckedChangeListener
+            }
             if (b) {
-                bluetooth.conexionBt?.write("F")
+                Bluetooth.instance.conexionBt?.write("F")
                 showShadowColors()
             } else {
-                bluetooth.conexionBt?.write("f")
+                Bluetooth.instance.conexionBt?.write("f")
                 hideShadowColors()
             }
 
         }
 
 
+    }
+
+    fun animaBloque(){
+        ScaleAnimation(0.5f,1f,
+                0.5f,1f,
+                ScaleAnimation.RELATIVE_TO_SELF,0.5f,
+                ScaleAnimation.RELATIVE_TO_SELF, 0.5f).apply {
+            duration = 300
+            fillAfter = true
+            bt_block.startAnimation(this)
+        }
     }
 
     fun setTitleLikeMario(){
@@ -188,12 +187,56 @@ class MainActivity : AppCompatActivity() {
         super.onResume()
         doParallax()
         animMario()
-        bluetooth.conectar(this, connectionListener)
+
+        Bluetooth.instance.rxListener = object:Bluetooth.RxListener{
+            override fun onReceivedData(s: String) {
+                if (s.contains("L".toRegex())) {
+                    bt_foco.isChecked = true
+                }
+                if (s.contains("l".toRegex())) {
+                    bt_foco.isChecked = false
+                }
+
+                if (s.contains("C".toRegex())) {
+                    bt_luces_colores.isChecked = true
+                }
+                if (s.contains("c".toRegex())) {
+                    bt_luces_colores.isChecked = false
+                }
+
+                bt_block.isEnabled = false
+            }
+
+        }
+
+        Bluetooth.instance.connectionListener = object : Bluetooth.ConnectionListener {
+            override fun connectionSuccess(s: String) {
+                bt_block.isEnabled = false
+                /*
+                bt_foco.isEnabled = true
+                bt_luces_colores.isEnabled = true
+                */
+            }
+
+            override fun connectionFailed(s: String) {
+                bt_block.isEnabled = true
+                /*
+                bt_foco.isEnabled = false
+                bt_luces_colores.isEnabled = false
+                */
+            }
+
+            override fun connectionResult(s: String) {
+            }
+
+        }
+
+        Bluetooth.instance.conectar(this)
     }
 
     override fun onPause() {
         super.onPause()
-        bluetooth.disconnect()
+        Bluetooth.instance.disconnect()
     }
 
     fun showShadowColors() {
