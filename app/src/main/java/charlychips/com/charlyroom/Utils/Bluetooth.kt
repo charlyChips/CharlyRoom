@@ -4,8 +4,10 @@ import android.app.Activity
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.bluetooth.BluetoothSocket
+import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.AsyncTask
 import android.os.Handler
 import android.support.v7.app.AlertDialog
@@ -83,11 +85,25 @@ class Bluetooth private constructor() {
 
 
     fun conectar(activity: Activity) {
+
+        address = loadAddress(activity)
         AsynkConecta(activity, connectionListener).execute()
     }
 
+    fun conectar(activity: Activity,address:String) {
+
+        AsynkConecta(activity, connectionListener).execute()
+    }
+
+
+    //TODO address
+    //TODO btAdapter
     private fun connect(): String {
-        if (address == null) return ""
+        if (address == null ) return ""
+        if(btAdapter == null){
+            btAdapter = BluetoothAdapter.getDefaultAdapter()
+        }
+        if(btAdapter == null) return ""
         val device = btAdapter!!.getRemoteDevice(address)
         try {
             btSocket = createBluetoothSocket(device)
@@ -114,6 +130,7 @@ class Bluetooth private constructor() {
         return "Conectado"
     }
 
+
     fun getDialogDevices(activity: Activity): AlertDialog {
 
         val dialogBuilder = AlertDialog.Builder(activity)
@@ -133,6 +150,7 @@ class Bluetooth private constructor() {
                 Toast.makeText(activity, "Agregue Dispositivo en Configuraciones", Toast.LENGTH_SHORT).show()
                 return@OnClickListener
             }
+            saveAddress(activity, address!!)
             conectar(activity)
             dialog.dismiss()
         })
@@ -275,11 +293,27 @@ class Bluetooth private constructor() {
         fun onReceivedData(rxData: String)
     }
 
+
+
+    private fun getPrefs(context: Context):SharedPreferences{
+        return context.getSharedPreferences("BTcharlyRoom",Context.MODE_PRIVATE)
+    }
+    private fun saveAddress(context: Context,address:String){
+        val prefs = getPrefs(context)
+        val editor = prefs.edit()
+        editor.putString("address",address)
+        editor.apply()
+    }
+    private fun loadAddress(context: Context):String?{
+        return getPrefs(context).getString("address",null)
+    }
+
     companion object {
         // SPP UUID service - this should work for most devices
         private val BTMODULEUUID = UUID.fromString("00001101-0000-1000-8000-00805F9B34FB")
         // String for MAC address
         private var address: String? = null
+
         var EXTRA_DEVICE_ADDRESS = "device_address"
         //=== Singleton
 
